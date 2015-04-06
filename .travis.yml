@@ -16,6 +16,17 @@
 #
 language: java
 
+# This should enable the container-based Travis CI infrastructure
+# (faster startup, caches public repos, but cannot use sudo):
+sudo: false
+
+# Install apt packages under container-based Travis CI infrastructure
+# avoiding "sudo apt-get install ..." - see http://docs.travis-ci.com/user/apt/
+addons:
+  apt:
+    packages:
+    - python-virtualenv
+
 # Installing Galaxy
 # =================
 #
@@ -43,7 +54,6 @@ language: java
 
 before_install:
  - echo "Creating virtual environment (with pip) for Galaxy's Python"
- - sudo apt-get install -y python-virtualenv
  - virtualenv .
  - source bin/activate
  - echo "Fixing permissions on Python eggs cache folder"
